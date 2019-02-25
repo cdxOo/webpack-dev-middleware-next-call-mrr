@@ -3,7 +3,6 @@ var expect = require('chai').expect,
     fetch = require('r2'),
     
     create_wdm_instance = require('./create-wdm-instance'),
-    create_next_injector = require('./create-next-injector'),
     create_express_server = require('./create-express-server'),
     
     dummy_route = require('./dummy-route');
@@ -22,8 +21,9 @@ describe('next-call', function () {
 
     afterEach(async () => {
         server.kill(() => {
-            // this this function is called but still hangs
-            // when accessing the bundle
+            // NOTE: this this function is called but still hangs
+            // when accessing the bundle i assume that there is still
+            // an open connection or sth
             //console.log('killswitch activated');
         });
     });
@@ -42,7 +42,7 @@ describe('next-call', function () {
 
         var r = await fetch(`${target}/`).response;
         expect(r.status).to.equal(200);
-        expect(await r.text()).to.have.length(262);
+        expect(await r.text()).to.have.length(9);
 
         expect(did_call_other_mw).to.equal(true);
     });
@@ -54,12 +54,7 @@ describe('next-call', function () {
 
         app.get('/', dummy_route);
 
-        // NOTE: the version w/o injected next also doesnt work
-        //app.use(wdm);
-        app.use(create_next_injector(
-            wdm,
-            () => { did_call_injected_next = true }
-        ));
+        app.use(wdm);
         app.use((req, res, next) => {
             did_call_other_mw = true;
             next();
