@@ -2,14 +2,19 @@
   "name": "webpack-dev-middleware-next-call-mrr",
   "version": "0.0.1",
   "description": "minimal reproducible test for call-next issue",
-  "main": "index.js",
+  "main": "src/test.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "./node_modules/mocha/bin/mocha src/test.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "chai": "^4.2.0",
     "express": "^4.16.4",
+    "get-port": "^4.1.0",
+    "killable": "^1.0.1",
+    "mocha": "^6.0.1",
+    "r2": "^2.0.1",
     "webpack": "^4.29.5",
     "webpack-dev-middleware": "^3.6.0"
   }
