@@ -7,7 +7,7 @@ var webpack = require('webpack'),
 
 module.exports = () => (
     wdm(compiler, {
-        //lazy: true,
+        lazy: true, // NOTE: lazy = false will leave the test hanging
         logLevel: 'silent',
         publicPath: wpconf.output.publicPath,
     })

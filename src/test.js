@@ -21,9 +21,6 @@ describe('next-call', function () {
 
     afterEach(async () => {
         server.kill(() => {
-            // NOTE: this this function is called but still hangs
-            // when accessing the bundle i assume that there is still
-            // an open connection or sth
             //console.log('killswitch activated');
         });
     });
