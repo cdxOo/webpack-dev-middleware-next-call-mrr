@@ -8,11 +8,33 @@ var express = require('express'),
     app = express(),
     compiler = webpack(wpconf);
 
-app.use(wdm(compiler, {
+var wdm_instance = wdm(compiler, {
     lazy: true,
     noInfo: false,
     publicPath: wpconf.output.publicPath
-}));
+});
+
+var wrapper = (req, res, next) => {
+    var inject = (...args) => {
+        console.log('calls injected NEXT');
+        return next(...args);
+    };
+    return wdm_instance(req, res, inject);
+};
+
+var other = (req, res, next) => {
+    console.log('called other middleware');
+    next();
+};
+
+app.use(wrapper);
+app.use(other);
+
+/*app.use(wdm(compiler, {
+    lazy: true,
+    noInfo: false,
+    publicPath: wpconf.output.publicPath
+}));*/
 
 app.get('/', (req, res) => {
     res.send(`
