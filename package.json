@@ -1,0 +1,16 @@
+{
+  "name": "webpack-dev-middleware-next-call-mrr",
+  "version": "0.0.1",
+  "description": "minimal reproducible test for call-next issue",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.4",
+    "webpack": "^4.29.5",
+    "webpack-dev-middleware": "^3.6.0"
+  }
+}
